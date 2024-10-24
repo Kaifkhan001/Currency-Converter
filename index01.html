@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <select name="currency" id="currency" onChange="handleChange(event)">
+      <option value="usd">USD</option>
+      <option value="inr">INR</option>
+      <option value="KD">KD</option>
+      <option value="EURO">EURO</option>
+    </select>
+    <script>
+      function useCurrencyInfo(currency) {
+        return axios
+          .get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency}.json`)
+          .then(function (response) {
+            return response.data[currency];
+          })
+          .catch(function (error) {
+            console.log("Error while fetchin currency info:- ",error);
+          })
+          .finally(function () {
+          });
+      }
+   let data =  useCurrencyInfo("usd").then( async(res) => {
+        console.log(res);
+        data = await res;
+        return res;
+      });
+
+      console.log("Data wala:- ", data);
+    </script>
+  </body>
+</html>
